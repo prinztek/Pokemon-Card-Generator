@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Generator</title>
+    <link rel="shortcut icon" href="images/favIcon2.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./Style/general.css" />
+    <link rel="stylesheet" href="./Style/navigation.css" />
+    <link rel="stylesheet" href="./Style/Main.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <a class="push" href="">Home</a>
+      <a class="about-nav-link">About</a>
+      <a class="pokemon-cards-nav-link">Pokémon Cards</a>
+      <a class="user-feature-nav-link">Sign-In/ Log-In</a>
+    </nav>
+    <!-- Main -->
+    <main>
+      <!-- Changable content -->
+      <div class="home-section">
+        <div class="left-section">
+          <h2>Welcome to Pokémon Card Generator!</h2>
+          <p>
+            Are you ready for a surprise from the Pokemon world? With a simple
+            click, you can generate a completely random Pokemon card, featuring
+            its unique attacks, and stats. Start generating now and let the
+            Pokemon adventure unfold before your eyes!
+          </p>
+        </div>
+        <div class="right-section">
+          <!-- Pokemon Card -->
+          <div class="card">
+            <div class="card-inner">
+              <!-- card__face -->
+              <div class="pokemon-card pokemon-card--front">
+                <div class="pokemon-image-container">
+                  <img class="pokemon-img" src="./Images/6.png" alt="pokemon" />
+                </div>
+                <div class="pokemon-info">
+                  <h3 class="pokemon-name">Charizard</h3>
+                  <p>
+                    <span class="pokemon-type">Fire</span>
+                    <span class="pokemon-type2">Flying</span>
+                  </p>
+                </div>
+              </div>
+              <!-- card__back -->
+              <div class="pokemon-card pokemon-card--back">
+                <h3>Stats</h3>
+                <ul class="pokemon-stats">
+                  <li>Hp 78</li>
+                  <li>Attack 84</li>
+                  <li>Defense 78</li>
+                  <li>Sp. Atk 109</li>
+                  <li>Sp. Def 85</li>
+                  <li>Speed 100</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Html2Canvas Save Image -->
+          <div hidden class="pokemon-card-capture"></div>
+
+          <div class="btn-holder">
+            <button id="generate-btn">Generate</button>
+            <button id="save-img-btn">Save Img</button>
+          </div>
+        </div>
+      </div>
+      <div class="about-section">
+        <h2>About Us</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
+          rhoncus velit. Nullam non ex vel quam feugiat rhoncus.
+        </p>
+        <a href="https://pokeapi.co/">Visit PokeApi</a>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+      <p>
+        Made with ♡ by Prinztek. Pokémon and Pokémon character names are
+        trademarks of Nintendo.
+      </p>
+    </footer>
+
+    <!-- Javascript  -->
+    <script type="module" src="./components/cardGenerator.js"></script>
+    <script type="module" src="./components/About.js"></script>
+    <script src="./components/CardFlip.js"></script>
+    <script src="./components/html2canvas.min.js"></script>
+  </body>
+</html>
