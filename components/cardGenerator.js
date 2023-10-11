@@ -3,11 +3,11 @@ import toUpperCase from "./toUpperCase.js";
 
 const btnGenerate = document.querySelector("#generate-btn");
 const btnSave = document.querySelector("#save-img-btn");
-
+const image = document.querySelector(".pokemon-img");
+const spinner = document.querySelector("#spinner");
 const defaultPokemonCard = document.querySelector(".pokemon-card--front");
 const defaultPokemonCardImageSection = defaultPokemonCard.children[0];
 const defaultPokemonCardInfoSection = defaultPokemonCard.children[1];
-
 const defaultPokemonCardBack = document.querySelector(".pokemon-card--back");
 
 const randomNumberGenerator = () => {
@@ -16,15 +16,25 @@ const randomNumberGenerator = () => {
 };
 
 const fetchPokemonData = async (number) => {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`);
-  const pokemonData = await response.json();
-  return pokemonData;
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data for Pokémon #${number}`);
+    }
+    const pokemonData = await response.json();
+    return pokemonData;
+  } catch (error) {
+    console.error("An error occurred while fetching Pokémon data:", error);
+    throw error; // Re-throw the error to propagate it up the call stack, if needed.
+  }
 };
 
 const changePokemonImage = async (pokemonData) => {
   const pokemonImageSrc =
     pokemonData.sprites.other["official-artwork"].front_default;
   defaultPokemonCardImageSection.firstElementChild.src = `${pokemonImageSrc}`;
+  image.style.display = "block";
+  spinner.style.display = "none";
 };
 
 const changePokemonStats = (pokemonData) => {
@@ -90,11 +100,14 @@ const changePokemontype = (pokemonData) => {
 };
 
 const changeDefaultPokemonCard = async () => {
+  image.style.display = "none";
+  spinner.style.display = "flex";
   const number = randomNumberGenerator();
   const pokemonData = await fetchPokemonData(number);
   const pokemonImage = await changePokemonImage(pokemonData);
   const pokemonInfo = changePokemonInfo(pokemonData);
 
+  /* Flips card if it's facing backwards when user clicks on generate button  */
   const card = document.querySelector(".card-inner");
   const flipped = document
     .querySelector(".card-inner")
