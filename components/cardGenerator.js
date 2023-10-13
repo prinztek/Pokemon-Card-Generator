@@ -9,6 +9,7 @@ const defaultPokemonCard = document.querySelector(".pokemon-card--front");
 const defaultPokemonCardImageSection = defaultPokemonCard.children[0];
 const defaultPokemonCardInfoSection = defaultPokemonCard.children[1];
 const defaultPokemonCardBack = document.querySelector(".pokemon-card--back");
+const card = document.querySelector(".card-inner");
 
 const randomNumberGenerator = () => {
   let randomNumber = Math.floor(Math.random() * 1001);
@@ -129,6 +130,10 @@ const savePokemonCard = () => {
   });
 };
 
+card.addEventListener("click", function (e) {
+  card.classList.toggle("is-flipped");
+});
+
 btnGenerate.addEventListener("click", changeDefaultPokemonCard);
 btnSave.addEventListener("click", savePokemonCard);
 
@@ -188,6 +193,13 @@ accepts a pokemon stats object
 and returns them in an html tag
 */
 
+/* 
+change background color for pokemon-card--back
+*/
+
+/*
+change default stats to current pokemon for pokemon-card--back
+*/
+
 // TODO LIST
-// change background color for pokemon-card--back
-// change default stats to current pokemon for pokemon-card--back
+// you can just use flex-wrap/flex-direction: column for your responsive design, try to make it.

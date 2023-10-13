@@ -4,3 +4,6 @@ package-lock.json
 
 # Ignore the node_modules directory
 node_modules/
+
+# Ignore the first html sctructure
+index copy.html
