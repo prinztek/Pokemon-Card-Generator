@@ -56,8 +56,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: none;
-  background-color: #ee8130;
+  background-image: linear-gradient(rgb(51, 51, 51), rgb(238, 129, 48));
+  background-color: none;
   padding: 8px;
   /* Pokemon Image Section */
   /* Pokemon Information Section */
@@ -96,6 +96,29 @@
   transform: translate(-50%, -50%);
 }
 
+/* Pokemon Card Stats */
+.pokemon-card--back {
+  background-image: linear-gradient(rgb(51, 51, 51), rgb(238, 129, 48));
+  background-color: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
+}
+.pokemon-card--back h3 {
+  margin-bottom: 5px;
+}
+.pokemon-card--back ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pokemon-card--back ul li {
+  color: rgb(41, 41, 41);
+  list-style-type: none;
+}
+
 /* Spinner animation */
 .spinner::before {
   content: "";
@@ -116,29 +139,6 @@
     transform: rotate(360deg);
   }
 }
-/* Pokemon Card Stats */
-.pokemon-card--back {
-  background-image: none;
-  background-color: #ee8130;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transform: rotateY(180deg);
-}
-.pokemon-card--back h3 {
-  margin-bottom: 5px;
-}
-.pokemon-card--back ul {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.pokemon-card--back ul li {
-  color: rgb(41, 41, 41);
-  list-style-type: none;
-}
-
 /* Generate and Save Img Button  */
 .btn-holder {
   text-align: center;
@@ -198,7 +198,7 @@
   display: grid;
   grid-template-columns: repeat(5, 266px);
   width: 100%;
-  height: 515px;
+  height: 100%;
   background-color: rgba(255, 166, 0, 0.486);
 }
 .pagination-section .pagination-btn {

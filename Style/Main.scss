@@ -1,4 +1,5 @@
 $pokemonDefaultCardBgColor: #ee8130;
+$pokemonDefaultCardBgImage: linear-gradient(rgb(51, 51, 51), rgb(238, 129, 48));
 $pokemonDefaultCardBoxShadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.6);
 
 .home-section {
@@ -59,8 +60,8 @@ $pokemonDefaultCardBoxShadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.6);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: none;
-  background-color: $pokemonDefaultCardBgColor;
+  background-image: $pokemonDefaultCardBgImage;
+  background-color: none;
   padding: 8px;
   /* Pokemon Image Section */
   .pokemon-image-container {
@@ -99,6 +100,29 @@ $pokemonDefaultCardBoxShadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.6);
   transform: translate(-50%, -50%);
 }
 
+/* Pokemon Card Stats */
+.pokemon-card--back {
+  background-image: $pokemonDefaultCardBgImage;
+  background-color: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    margin-bottom: 5px;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    li {
+      color: rgb(41, 41, 41);
+      list-style-type: none;
+    }
+  }
+  transform: rotateY(180deg);
+}
+
 /* Spinner animation */
 .spinner::before {
   content: "";
@@ -118,29 +142,6 @@ $pokemonDefaultCardBoxShadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.6);
   100% {
     transform: rotate(360deg);
   }
-}
-
-/* Pokemon Card Stats */
-.pokemon-card--back {
-  background-image: none;
-  background-color: $pokemonDefaultCardBgColor;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  h3 {
-    margin-bottom: 5px;
-  }
-  ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    li {
-      color: rgb(41, 41, 41);
-      list-style-type: none;
-    }
-  }
-  transform: rotateY(180deg);
 }
 
 /* Generate and Save Img Button  */
@@ -201,7 +202,7 @@ $pokemonDefaultCardBoxShadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.6);
     display: grid;
     grid-template-columns: repeat(5, 266px);
     width: 100%;
-    height: 515px;
+    height: 100%;
     background-color: rgba(255, 166, 0, 0.486);
   }
   .pagination-btn {
