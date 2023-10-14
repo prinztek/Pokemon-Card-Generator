@@ -1,5 +1,4 @@
 .home-section {
-  display: block;
   height: 100%;
   width: 100%;
   display: flex;
@@ -20,8 +19,9 @@
   margin-bottom: 5px;
 }
 
-/* Pokemon Card */
+/* Pokemon Card or Right Section*/
 .card {
+  position: relative;
   height: 370px;
   width: 216px;
   margin: 25px;
@@ -89,6 +89,7 @@
 
 /* Spinner container */
 .spinner {
+  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -187,21 +188,24 @@
 
 /* About Section */
 .pagination-section {
-  display: flex;
+  display: block;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
   align-items: center;
-  background-color: orange;
 }
 .pagination-section .pagination-cards {
-  height: 2fr;
-  background-color: orange;
+  display: grid;
+  grid-template-columns: repeat(5, 266px);
+  width: 100%;
+  height: 515px;
+  background-color: rgba(255, 166, 0, 0.486);
 }
 .pagination-section .pagination-btn {
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  height: 80px;
-  width: 100%;
   background-color: lightblue;
 }
 .pagination-section .pagination-btn button {
