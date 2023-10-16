@@ -1,8 +1,52 @@
-<div class="pagination-section">
-  <h2>Pokemon Cards</h2>
-  <div class="pagination-cards"></div>
-  <div class="pagination-btn">
-    <button>Previous</button>
-    <button>Next</button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Generator</title>
+    <link rel="shortcut icon" href="images/favIcon2.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../Style/general.css" />
+    <link rel="stylesheet" href="../Style/Main.css" />
+    <link rel="stylesheet" href="../Style/navigation.css" />
+    <link rel="stylesheet" href="../Style/footer.css" />
+    <link rel="stylesheet" href="../Style/spinner.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <a class="home push" href="./index.html">Home</a>
+      <a class="pagination-nav-link" href="./pagination.html">Pokémon Cards</a>
+      <a class="about-nav-link" href="./about.html">About</a>
+      <a class="user-nav-link" href="./user.html">Sign-In/Log-In</a>
+    </nav>
+    <!-- Main -->
+    <main>
+      <div id="root">
+        <div class="pagination-section">
+          <div class="pagination-cards"></div>
+          <div class="pagination-btn">
+            <button>Previous</button>
+            <button>Next</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+      <p>
+        Made with ♡ by Prinztek. Pokémon and Pokémon character names are
+        trademarks of Nintendo.
+      </p>
+    </footer>
+
+    <!-- Javascript  -->
+    <script type="module" src="../components/pagination.js"></script>
+  </body>
+</html>

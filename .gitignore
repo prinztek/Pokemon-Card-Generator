@@ -5,5 +5,7 @@ package-lock.json
 # Ignore the node_modules directory
 node_modules/
 
-# Ignore the first html sctructure
+# Ignore 
 index copy.html
+runSpecificScript.js
+router.js
