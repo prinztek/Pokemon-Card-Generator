@@ -1,7 +1,8 @@
 import toUpperCase from "./toUpperCase.js";
 import fetchPokemonData from "./fetchPokemonData.js";
 import changePokemonImage from "./changePokemonImage.js";
-import changePokemonBackgroundColor from "./changePokemonBackgroundColor.js";
+import changePokemonType from "./changePokemonType.js";
+import changePokemonStats from "./changePokemonStats.js";
 
 const paginationCardsSection = document.querySelector(".pagination-cards");
 const paginationBtnSection = document.querySelector(".pagination-btn");
@@ -48,11 +49,11 @@ const createPokemonCard = (name, type1, type2) => {
 const populatePokemonCards = async () => {
   let pokemonDataCount = 10;
   const pokemonDataArray = [];
+  /* Get Pokemon Data */
   for (let i = 1; i <= pokemonDataCount; i++) {
     const pokemonDataawait = await fetchPokemonData(i);
     pokemonDataArray.push(pokemonDataawait);
   }
-  console.log(pokemonDataArray);
   /* Update elements */
   for (let i = 0; i < pokemonDataArray.length; i++) {
     const pokemonData = pokemonDataArray[i];
@@ -74,30 +75,39 @@ const populatePokemonCards = async () => {
       pokemonImage,
       newPokemonImage
     );
-    /* update color */
+    /* update color and type */
     const pokemonCard = document.querySelectorAll(".pokemon-card--front")[i];
     const pokemonCardBack = document.querySelectorAll(".pokemon-card--back")[i];
-    const pokemonTypes = document.querySelectorAll(".pokemon-types")[i];
-
-    if (type2 != null) {
-      pokemonCard.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
-        type
-      )})`;
-      pokemonCardBack.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
-        type
-      )})`;
-    } else {
-      /* Change Color */
-      pokemonCard.style.backgroundImage = "none";
-      pokemonCard.style.backgroundColor = `${changePokemonBackgroundColor(
-        type
-      )}`;
-      pokemonCardBack.style.backgroundImage = "none";
-      pokemonCardBack.style.backgroundColor = `${changePokemonBackgroundColor(
-        type
-      )}`;
-    }
+    const pokemonTypeParagraph = document.querySelectorAll(".pokemon-types")[i];
+    const pokemonTypeArray = pokemonData.types;
+    changePokemonType(
+      pokemonTypeArray,
+      pokemonTypeParagraph,
+      pokemonCard,
+      pokemonCardBack
+    );
+    // if (type2 != null) {
+    //   pokemonCard.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
+    //     type
+    //   )})`;
+    //   pokemonCardBack.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
+    //     type
+    //   )})`;
+    // } else {
+    //   /* Change Color */
+    //   pokemonCard.style.backgroundImage = "none";
+    //   pokemonCard.style.backgroundColor = `${changePokemonBackgroundColor(
+    //     type
+    //   )}`;
+    //   pokemonCardBack.style.backgroundImage = "none";
+    //   pokemonCardBack.style.backgroundColor = `${changePokemonBackgroundColor(
+    //     type
+    //   )}`;
+    // }
     /* update Stats */
+    const pokemonCardStats = document.querySelectorAll(".pokemon-stats")[i];
+    const pokemonStatsArray = pokemonData.stats;
+    changePokemonStats(pokemonStatsArray, pokemonCardStats);
   }
   /* Card Flip to view stats */
   const cardList = document.querySelectorAll(".card-inner");

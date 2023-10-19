@@ -17,6 +17,7 @@ main {
   justify-content: center;
   align-items: center;
   padding: 25px 0px;
+  background-color: #ffffff;
 }
 
 /* Left Section */
@@ -160,40 +161,46 @@ main {
   outline: 1px solid blue;
 }
 
-/* About Section */
+/* Pagination Section */
 .pagination-section {
   display: block;
-  height: 100%;
+  min-height: 900px;
   width: 100%;
   flex-direction: column;
   align-items: center;
+  background-color: #ffffff;
   /* Previous and Next Button or (1, 2, 3...)  */
 }
 .pagination-section .pagination-cards {
+  width: 100%;
+  height: 90%;
   display: grid;
   grid-template-columns: repeat(5, 266px);
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 166, 0, 0.486);
+  grid-template-rows: auto;
+  justify-content: space-evenly;
+  justify-items: center;
+  align-content: space-evenly;
+  align-items: center;
 }
 .pagination-section .pagination-btn {
   display: flex;
+  height: 10%;
   width: 100%;
   justify-content: center;
   align-items: center;
-  background-color: lightblue;
+  padding: 10px;
 }
 .pagination-section .pagination-btn button {
   width: 100px;
   color: white;
-  background-color: black;
+  background-color: rgb(51, 51, 51);
   border: none;
   border-radius: 3px;
   padding: 8px 15px;
   font-size: 14px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.1s ease-in-out; /* Animation */
+  transition: all 0.1s ease; /* Animation */
   margin: 5px;
 }
 .pagination-section .pagination-btn button:hover {

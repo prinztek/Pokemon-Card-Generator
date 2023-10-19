@@ -2,6 +2,7 @@ import toUpperCase from "./toUpperCase.js";
 import fetchPokemonData from "./fetchPokemonData.js";
 import changePokemonImage from "./changePokemonImage.js";
 import changePokemonBackgroundColor from "./changePokemonBackgroundColor.js";
+import changePokemonStats from "./changePokemonStats.js";
 
 const btnGenerate = document.querySelector("#generate-btn");
 const btnSave = document.querySelector("#save-img-btn");
@@ -19,7 +20,8 @@ const randomNumberGenerator = () => {
   return randomNumber;
 };
 
-/* const fetchPokemonData = async (number) => {
+/*
+const fetchPokemonData = async (number) => {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${number}`);
     if (!response.ok) {
@@ -31,15 +33,17 @@ const randomNumberGenerator = () => {
     console.error("An error occurred while fetching Pokémon data:", error);
     throw error; // Re-throw the error to propagate it up the call stack, if needed.
   }
-}; */
+};
+*/
 
-/* const changePokemonImage = (pokemonImage, pokemonImageSrc) => {
+/*
+const changePokemonImage = (pokemonImage, pokemonImageSrc) => {
   pokemonImage.src = `${pokemonImageSrc}`;
-}; */
+};
+*/
 
-const changePokemonStats = (pokemonData) => {
-  const defaultPokemonCardStats = document.querySelector(".pokemon-stats");
-  const pokemonStats = pokemonData.stats;
+/* 
+const changePokemonStats = (pokemonStats, defaultPokemonCardStats) => {
   let pokemonStatsHtml = "";
   for (let i = 0; i < pokemonStats.length; i++) {
     if (pokemonStats[i].stat.name === "special-attack") {
@@ -54,6 +58,7 @@ const changePokemonStats = (pokemonData) => {
   }
   defaultPokemonCardStats.innerHTML = pokemonStatsHtml;
 };
+ */
 
 const changePokemonInfo = (pokemonData) => {
   // Change the pokemon name to Sentence Case
@@ -61,7 +66,13 @@ const changePokemonInfo = (pokemonData) => {
   pokemonNameH3.textContent = toUpperCase(pokemonData.name);
   // Change the pokemon card's backgroun color and type span
   const pokemonType = changePokemontype(pokemonData);
-  const pokemonStats = changePokemonStats(pokemonData);
+  const defaultPokemonCardStatsElement =
+    document.querySelector(".pokemon-stats");
+  const pokemonStatsArray = pokemonData.stats;
+  const pokemonStats = changePokemonStats(
+    pokemonStatsArray,
+    defaultPokemonCardStatsElement
+  );
 };
 
 const changePokemontype = (pokemonData) => {
@@ -98,66 +109,6 @@ const changePokemontype = (pokemonData) => {
     )}`;
   }
 };
-
-/* const changePokemonBackgroundColor = (type) => {
-  let color = "#FFFFFF";
-  switch (type) {
-    case "fire":
-      color = "#EE8130";
-      break;
-    case "water":
-      color = "#6390F0";
-      break;
-    case "electric":
-      color = "#F7D02C";
-      break;
-    case "grass":
-      color = "#7AC74C";
-      break;
-    case "ice":
-      color = "#96D9D6";
-      break;
-    case "fighting":
-      color = "#C22E28";
-      break;
-    case "poison":
-      color = "#A33EA1";
-      break;
-    case "ground":
-      color = "#E2BF65";
-      break;
-    case "flying":
-      color = "#A98FF3";
-      break;
-    case "psychic":
-      color = "#F95587";
-      break;
-    case "bug":
-      color = "#A6B91A";
-      break;
-    case "rock":
-      color = "#B6A136";
-      break;
-    case "ghost":
-      color = "#735797";
-      break;
-    case "dragon":
-      color = "#6F35FC";
-      break;
-    case "dark":
-      color = "#705746";
-      break;
-    case "steel":
-      color = "#B7B7CE";
-      break;
-    case "fairy":
-      color = "#D685AD";
-      break;
-    default:
-      color = "#A8A878";
-  }
-  return color;
-}; */
 
 const changeDefaultPokemonCard = async () => {
   image.style.display = "none";
