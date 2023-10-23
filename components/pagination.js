@@ -3,9 +3,22 @@ import fetchPokemonData from "./fetchPokemonData.js";
 import changePokemonImage from "./changePokemonImage.js";
 import changePokemonType from "./changePokemonType.js";
 import changePokemonStats from "./changePokemonStats.js";
+import changePokemonBackgroundColor from "./changePokemonBackgroundColor.js";
 
 const paginationCardsSection = document.querySelector(".pagination-cards");
-const paginationBtnSection = document.querySelector(".pagination-btn");
+
+const pokemonDataArray = [];
+let itemsPerPage = 10;
+let currentPage = 1;
+
+const getPokemonData = async () => {
+  let pokemonDataCount = 50;
+  /* Get Pokemon Data */
+  for (let i = 1; i <= pokemonDataCount; i++) {
+    const pokemonData = await fetchPokemonData(i);
+    pokemonDataArray.push(pokemonData);
+  }
+};
 
 /* function that accept an array pokemonDataArray => returns template string of card */
 const createPokemonCard = (name, type1, type2) => {
@@ -46,14 +59,7 @@ const createPokemonCard = (name, type1, type2) => {
 </div>`;
 };
 
-const populatePokemonCards = async () => {
-  let pokemonDataCount = 10;
-  const pokemonDataArray = [];
-  /* Get Pokemon Data */
-  for (let i = 1; i <= pokemonDataCount; i++) {
-    const pokemonDataawait = await fetchPokemonData(i);
-    pokemonDataArray.push(pokemonDataawait);
-  }
+const updatePokemonCard = () => {
   /* Update elements */
   for (let i = 0; i < pokemonDataArray.length; i++) {
     const pokemonData = pokemonDataArray[i];
@@ -86,24 +92,6 @@ const populatePokemonCards = async () => {
       pokemonCard,
       pokemonCardBack
     );
-    // if (type2 != null) {
-    //   pokemonCard.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
-    //     type
-    //   )})`;
-    //   pokemonCardBack.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
-    //     type
-    //   )})`;
-    // } else {
-    //   /* Change Color */
-    //   pokemonCard.style.backgroundImage = "none";
-    //   pokemonCard.style.backgroundColor = `${changePokemonBackgroundColor(
-    //     type
-    //   )}`;
-    //   pokemonCardBack.style.backgroundImage = "none";
-    //   pokemonCardBack.style.backgroundColor = `${changePokemonBackgroundColor(
-    //     type
-    //   )}`;
-    // }
     /* update Stats */
     const pokemonCardStats = document.querySelectorAll(".pokemon-stats")[i];
     const pokemonStatsArray = pokemonData.stats;
@@ -118,16 +106,211 @@ const populatePokemonCards = async () => {
   });
 };
 
+const populatePokemonCards = async () => {
+  await getPokemonData();
+
+  // pagination
+  const indexOfLastPage = currentPage * itemsPerPage;
+  const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+  const currentItmes = pokemonDataArray.slice(
+    indexOfFirstPage,
+    indexOfLastPage
+  );
+
+  let cardHTML = "";
+  for (let i = 0; i < currentItmes.length; i++) {
+    const pokemon = currentItmes[i];
+    /* update pokemon name */
+    const name = toUpperCase(pokemon.name);
+    /* update pokemon types */
+    const type = pokemon.types[0].type.name;
+    const type2 = pokemon.types[1] ? pokemon.types[1].type.name : null;
+    const type2HTML = type2
+      ? `<span class="pokemon-type2">${toUpperCase(
+          pokemon.types[1].type.name
+        )}</span>`
+      : "";
+    /* update pokemon card color */
+    const typeArray = pokemon.types;
+    let backgroundImage;
+    let backgroundColor;
+    if (typeArray.length > 1) {
+      // change background-image: gradient(dark-color, color-according-type)
+      // `linear-gradient(to bottom, #505050, ${changePokemonBackgroundColor(type)})`;
+      backgroundImage = `linear-gradient(to bottom, #505050, ${changePokemonBackgroundColor(
+        type
+      )})`;
+      backgroundColor = "none";
+    } else {
+      backgroundImage = "none";
+      backgroundColor = `${changePokemonBackgroundColor(type)}`;
+    }
+    /* update pokemon card image */
+    const newPokemonImage =
+      pokemon.sprites.other["official-artwork"].front_default;
+    /* update pokemon card stats */
+    let statsHTML = "";
+    const pokemonStats = pokemon.stats;
+    for (let i = 0; i < pokemonStats.length; i++) {
+      if (pokemonStats[i].stat.name === "special-attack") {
+        statsHTML += `<li>Sp. Atk ${pokemonStats[i].base_stat}</li>`;
+      } else if (pokemonStats[i].stat.name === "special-defense") {
+        statsHTML += `<li>Sp. Def ${pokemonStats[i].base_stat}</li>`;
+      } else {
+        statsHTML += `<li>${toUpperCase(pokemonStats[i].stat.name)} ${
+          pokemonStats[i].base_stat
+        }</li>`;
+      }
+    }
+    const pokemonCardHTML = `
+      <div class="card">
+        <div class="card-inner">
+          <!-- card__face -->
+          <div class="pokemon-card pokemon-card--front" style="background-image: ${backgroundImage}; background-color: ${backgroundColor};">
+            <div class="pokemon-image-container">
+              <img class="pokemon-img" src=${newPokemonImage} alt="pokemon" />
+              <div class="spinner" id="spinner"></div>
+            </div>
+            <div class="pokemon-info">
+              <h3 class="pokemon-name">${name}</h3>
+              <p class="pokemon-types">
+              <span class="pokemon-type">${toUpperCase(type)}</span>
+              ${type2HTML}
+              </p>
+            </div>
+          </div>
+          <!-- card__back -->
+          <div class="pokemon-card pokemon-card--back" style="background-image: ${backgroundImage}; background-color: ${backgroundColor};">
+            <h3>Stats</h3>
+            <ul class="pokemon-stats">
+              ${statsHTML}
+            </ul>
+          </div>
+        </div>
+      </div>`;
+    cardHTML += pokemonCardHTML;
+  }
+  paginationCardsSection.innerHTML = cardHTML;
+  /* change color */
+  /* flip card */
+  const cardList = document.querySelectorAll(".card-inner");
+  cardList.forEach((card) => {
+    card.addEventListener("click", function (e) {
+      card.classList.toggle("is-flipped");
+    });
+  });
+};
+
 populatePokemonCards();
+
+const prevBtn = () => {
+  if ((currentPage - 1) * itemsPerPage) {
+    currentPage--;
+    populatePokemonCards();
+  }
+};
+
+const nextBtn = () => {
+  if (
+    (currentPage * itemsPerPage) / pokemonDataArray.length &&
+    currentPage != 5
+  ) {
+    currentPage++;
+    populatePokemonCards();
+  }
+};
+
+const prevButton = document.querySelector(".prev-btn");
+const nextButton = document.querySelector(".next-btn");
+
+prevButton.addEventListener("click", prevBtn, false);
+nextButton.addEventListener("click", nextBtn, false);
 /* TO DO LIST */
 
 /* add working pagination */
 
-/* update Stats */
-
 /* 
-fucntion that creates a pokemon Card (using a template string)
-accepts parameter of (pokemon name, type, stats, official-artwork(pokemon image))
-*/
+const body = document.getElementById("app");
+const pokemonDataArray = [];
 
-/* wrapper function decide how many times the create pokemon Card is called */
+let itemsPerPage = 8;
+let currentPage = 1;
+
+async function getPokemonData() {
+  const apiUrl = "https://pokeapi.co/api/v2/pokemon/";
+  for (let i = 1; i <= 40; i++) {
+    const response = await fetch(`${apiUrl}${i}`);
+    const pokemonData = await response.json();
+    pokemonDataArray.push(pokemonData);
+  }
+}
+
+async function displayCards() {
+  await getPokemonData();
+  // console.log(pokemonDataArray);
+
+  // pagination
+  const pages = [];
+  for (let i = 0; i <= Math.ceil(pokemonDataArray.length / itemsPerPage); i++) {
+    pages.push(i);
+  }
+
+  const indexOfLastPage = currentPage * itemsPerPage;
+  const indexOfFirstPage = indexOfLastPage - itemsPerPage;
+  const currentItmes = pokemonDataArray.slice(
+    indexOfFirstPage,
+    indexOfLastPage
+  );
+
+  const pokemonCardContainer = document.createElement("div"); // store pokemon cards inside a grid
+  pokemonCardContainer.classList.add("grid");
+
+  document.getElementById("app").innerHTML = currentItmes
+    .map(
+      (pokemon) =>
+        `<div class="center-vertical grid">
+        <div class="pokemon-card center-vertical">
+        <p>${pokemon.forms[0].name}</p>
+        <img src=${
+          pokemon.sprites.other["official-artwork"].front_default
+        } style="width: 300px;">
+        <ul class="list-center">
+          ${displayPokemonType(pokemon.types)}
+          </ul>
+        </div>
+        </div>`
+    )
+    .join("");
+
+  function displayPokemonType(array) {
+    if (array.length > 1) {
+      const firstType = `<li>${array[0].type.name}</li>`;
+      const secondType = `<li>${array[1].type.name}</li>`;
+      return `${firstType}${secondType}`;
+    } else {
+      const firstType = `<li>${array[0].type.name}</li>`;
+      return `${firstType}`;
+    }
+  }
+}
+
+displayCards();
+
+const prevBtn = () => {
+  if ((currentPage - 1) * itemsPerPage) {
+    currentPage--;
+    displayCards();
+  }
+};
+
+const nextBtn = () => {
+  if ((currentPage * itemsPerPage) / pokemonDataArray.length) {
+    currentPage++;
+    displayCards();
+  }
+};
+
+document.getElementById("prev-btn").addEventListener("click", prevBtn, false);
+document.getElementById("next-btn").addEventListener("click", nextBtn, false);
+
+*/
