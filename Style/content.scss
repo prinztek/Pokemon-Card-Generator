@@ -1,5 +1,8 @@
 $pokemonDefaultCardBgColor: #ee8130;
-$pokemonDefaultCardBgImage: linear-gradient(rgb(51, 51, 51), rgb(238, 129, 48));
+$pokemonDefaultCardBgImage: linear-gradient(
+  rgb(31.37, 31.37, 31.37),
+  rgb(238, 129, 48)
+);
 $pokemonDefaultCardBoxShadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.6);
 $headerTextColor: #212427;
 $primaryTextColor: #313131;

@@ -86,10 +86,10 @@ const changePokemontype = (pokemonData) => {
     )}</span> 
     <span class="pokemon-type2">${toUpperCase(type2)}</span>`;
     /* Change Color */
-    defaultPokemonCard.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
+    defaultPokemonCard.style.backgroundImage = `linear-gradient(to bottom, #505050, ${changePokemonBackgroundColor(
       type
     )})`;
-    defaultPokemonCardBack.style.backgroundImage = `linear-gradient(to bottom, #333333, ${changePokemonBackgroundColor(
+    defaultPokemonCardBack.style.backgroundImage = `linear-gradient(to bottom, #505050, ${changePokemonBackgroundColor(
       type
     )})`;
   } else if (pokemonTypeArray.length === 1) {
