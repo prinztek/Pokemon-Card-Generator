@@ -6,10 +6,21 @@
   padding: 50px 25px;
   box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.6);
 }
-.about-section h2,
-.about-section p {
+.about-section .description {
+  margin-bottom: 25px;
+}
+.about-section .description h2 {
   margin-bottom: 5px;
 }
-.about-section a {
-  color: gray;
+.about-section .description a {
+  color: rgb(112, 112, 112);
+  margin-bottom: 15px;
+}
+.about-section .more-info ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+.about-section .more-info ul li {
+  color: rgb(43, 36, 36);
 }/*# sourceMappingURL=about.css.map */
